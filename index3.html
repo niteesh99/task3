@@ -1,0 +1,123 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .underline{
+            text-decoration: line-through;
+        }
+        .container
+        {        
+            width: 50%;
+            margin: 200 auto;
+        }
+        .hr1{
+            border-bottom: 2px solid black;
+        }
+        input[type="text"]
+        {
+              padding: 6px;
+              width:400px;
+            border-width:0px;
+            border:none;
+            outline:none;
+        }
+        button{
+            float: right;
+        }
+        body{
+            background-color: rgb(184, 175, 175);
+        }
+       h3{
+           text-align: center;
+       }
+    </style>
+</head>
+<body style="margin:0%;" onload="onLoad()">
+    <div class="container">
+        <h3>ADD TASK</h3>
+        <hr class="hr1">
+        <h4 style="color: gray;">Add Task</p>
+        <input style="position: absolute;right:630px;top:258px"type="text" id="name" />
+        <button onclick="add()"style="position: absolute;right:550px;top:262px"> Add </button>
+        <h3>TODO</h3>
+        <hr class="hr1">
+        <div id="dis">   
+            
+        </div>
+        <h3>COMPLETED TASK</h3>
+        <hr class="hr1">
+        <div id="dis2">
+
+        </div>
+    </div>
+    </body>
+<script>
+    let list = [];
+    let list1 = [];
+    function onLoad()
+    {
+        let ans = ``;
+        let ans1 = ``;
+        list.map((value,i) => {
+            ans += `<button onclick="edit('p${i}',${i})"">edit</button> <button class="right" onclick="deltodo(${i})">delete</button><input type="checkbox" id="${i}" onclick="transfer(${i})" /><p id="p${i}">${value}</p>  <br/>`
+        })
+       document.getElementById("dis").innerHTML = ans
+        list1.map((value,i) => {
+            ans1 += `<button onclick="edit('g${i}',${i})">edit</button> <button class="right" onclick="delconfirm(${i})">delete</button><input type="checkbox" id="${i}" checked /><p class="underline" id="g${i}">${value}</p>  <br/>`
+        })
+        document.getElementById("dis2").innerHTML = ans1
+        console.log(ans1)
+    }
+    function add()
+    {
+        list.push(document.getElementById("name").value);
+        var d=document.getElementById("name").value;
+        document.getElementById("name").value = ""
+        var ans = loadData();
+        document.getElementById("dis").innerHTML = ans;
+        console.log(ans)
+    }
+    function loadData(){
+    let ans = ``
+    list.map((value,i) => {
+        ans += `<button onclick="edit('p${i}',${i})">edit</button> <button onclick="deltodo(${i})">delete</button><input type="checkbox" id="${i}"onclick="transfer(${i})"/><p id="p${i}">${value}</p>`
+    })
+    return ans;
+   }
+   function transfer(i){
+       var del = list.splice(i,1)
+       list1.push(del[0]);
+       onLoad();
+       console.log(list1)
+   }
+   function deltodo(i)
+   {
+       list.splice(i,1);
+       onLoad();
+   }
+   function delconfirm(i)
+   {
+       list1.splice(i,1);
+       onLoad();
+   }
+   function edit(i,x)
+   {    if(document.getElementById(i).contentEditable == "inherit")
+            document.getElementById(i).contentEditable = true
+        else{
+            document.getElementById(i).contentEditable = "inherit"
+            if(i[0].split(2,) == "p")
+                list[x] = document.getElementById(i).innerHTML
+            if(i[0].split(2,) == "g")
+                list1[x] = document.getElementById(i).innerHTML
+            console.log(list)
+            console.log(list1)
+        }
+   }
+  
+</script>
+
+</html>
