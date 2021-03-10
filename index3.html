@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
     <style>
         .underline{
             text-decoration: line-through;
@@ -16,6 +19,7 @@
         }
         .hr1{
             border-bottom: 2px solid black;
+
         }
         input[type="text"]
         {
@@ -25,49 +29,77 @@
             border:none;
             outline:none;
         }
-        button{
+        label{
+            font-family: 'Open Sans', sans-serif;
             float: right;
+            color: gray;
+            font-size: 17px;
+            
+            
         }
         body{
             background-color: rgb(184, 175, 175);
         }
        h3{
+        font-family: 'Open Sans', sans-serif;
            text-align: center;
+           clear:both;
+           list-style:none;
+           color:black;
+            font-weight: 700;
+           font-size: 15px;
        }
+       .move{
+           left: 58%;
+           position: absolute;
+       }
+       .move1{
+           left: 67%;
+           position: absolute;
+       }
+    
     </style>
 </head>
 <body style="margin:0%;" onload="onLoad()">
     <div class="container">
         <h3>ADD TASK</h3>
         <hr class="hr1">
-        <h4 style="color: gray;">Add Task</p>
-        <input style="position: absolute;right:630px;top:258px"type="text" id="name" />
-        <button onclick="add()"style="position: absolute;right:550px;top:262px"> Add </button>
-        <h3>TODO</h3>
+        <h4 style="color: gray;font-family: 'Open Sans', sans-serif">Add Task</p>
+        <input  style="position: absolute;right:450px;top:258px;"type="text" id="name" />
+        <h3 style="cursor: pointer;">TODO</h3>
         <hr class="hr1">
+        <br>
         <div id="dis">   
             
         </div>
         <h3>COMPLETED TASK</h3>
         <hr class="hr1">
+        <br>
         <div id="dis2">
 
         </div>
     </div>
     </body>
 <script>
+
     let list = [];
     let list1 = [];
+    document.getElementById("name").addEventListener('keyup',function(e){
+    if (e.keyCode === 13) {
+      add();
+  }
+  });
+
     function onLoad()
     {
         let ans = ``;
         let ans1 = ``;
         list.map((value,i) => {
-            ans += `<button onclick="edit('p${i}',${i})"">edit</button> <button class="right" onclick="deltodo(${i})">delete</button><input type="checkbox" id="${i}" onclick="transfer(${i})" /><p id="p${i}">${value}</p>  <br/>`
+            ans += `<label class="move1"onclick="edit('p${i}',${i})"">Edit</label> <label class="move" onclick="deltodo(${i})">Delete</label><input type="checkbox" id="${i}" onclick="transfer(${i})" /><p id="p${i}">${value}</p>  <br/>`
         })
        document.getElementById("dis").innerHTML = ans
         list1.map((value,i) => {
-            ans1 += `<button onclick="edit('g${i}',${i})">edit</button> <button class="right" onclick="delconfirm(${i})">delete</button><input type="checkbox" id="${i}" checked /><p class="underline" id="g${i}">${value}</p>  <br/>`
+            ans1 += `<label class=move1 onclick="edit('g${i}',${i})">Edit</label> <label class="move" onclick="delconfirm(${i})">Delete</label><input type="checkbox" id="${i}" checked /><p class="underline" id="g${i}">${value}</p>  <br/>`
         })
         document.getElementById("dis2").innerHTML = ans1
         console.log(ans1)
@@ -84,7 +116,7 @@
     function loadData(){
     let ans = ``
     list.map((value,i) => {
-        ans += `<button onclick="edit('p${i}',${i})">edit</button> <button onclick="deltodo(${i})">delete</button><input type="checkbox" id="${i}"onclick="transfer(${i})"/><p id="p${i}">${value}</p>`
+        ans += `<label class="move1" onclick="edit('p${i}',${i})">Edit</label> <label class="move"onclick="deltodo(${i})">Delete</label><input type="checkbox" id="${i}"onclick="transfer(${i})"/><p id="p${i}">${value}</p>`
     })
     return ans;
    }
